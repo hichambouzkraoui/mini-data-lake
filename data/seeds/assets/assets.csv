@@ -1,3 +1,4 @@
-id,name,type,location
-1,Pump A,pump,Building 1
-2,Sensor B,sensor,Building 2
+asset_id,asset_name,asset_type,location,install_date
+A001,Pipeline Segment 1,Pipeline,North Field,2020-01-15
+A002,Compressor Station A,Compressor,Central Hub,2019-06-20
+A003,Pipeline Segment 2,Pipeline,South Field,2021-03-10

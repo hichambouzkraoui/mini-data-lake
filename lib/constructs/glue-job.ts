@@ -105,7 +105,7 @@ export class GlueJob extends Construct {
         ].join(' --conf '),
         '--additional-python-modules': 'boto3',
       },
-      maxRetries: 1,
+      maxRetries: 0,
       timeout: 60,
       glueVersion: '4.0',
       workerType: 'G.1X',

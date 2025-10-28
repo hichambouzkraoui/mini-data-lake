@@ -53,7 +53,7 @@ describe('GlueJob', () => {
         Name: 'glueetl',
         PythonVersion: '3'
       },
-      MaxRetries: 1,
+      MaxRetries: 0,
       Timeout: 60,
       GlueVersion: '4.0',
       WorkerType: 'G.1X',
