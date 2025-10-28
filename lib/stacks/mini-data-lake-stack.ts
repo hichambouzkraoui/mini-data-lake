@@ -20,7 +20,7 @@ export class MiniDataLakeStack extends cdk.Stack {
     });
 
     const catalog = new DataCatalog(this, 'DataCatalog', {
-      databaseName: `datalake-${props.environment}`
+      databaseName: `datalake_${props.environment}`
     });
 
     const athena = new AthenaWorkgroup(this, 'AthenaWorkgroup', {
@@ -33,7 +33,7 @@ export class MiniDataLakeStack extends cdk.Stack {
       rawBucket: storage.rawBucket,
       curatedBucket: storage.curatedBucket,
       kmsKey: storage.kmsKey,
-      databaseName: 'datalake_db',
+      databaseName: `datalake_${props.environment}`,
     });
 
     new DataDeployment(this, 'DataDeployment', {
