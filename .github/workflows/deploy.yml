@@ -5,6 +5,8 @@ on:
     branches: [ main ]
     tags:
       - 'v*'
+  pull_request:
+    types: [ ready_for_review ]
   pull_request_review:
     types: [ submitted ]
 
@@ -16,7 +18,7 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     environment: dev
-    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    if: (github.event_name == 'pull_request_review' && github.event.review.state == 'approved') || (github.event_name == 'pull_request' && github.event.action == 'ready_for_review')
     
     steps:
     - uses: actions/checkout@v4
