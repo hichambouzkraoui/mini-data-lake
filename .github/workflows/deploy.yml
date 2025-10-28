@@ -1,0 +1,101 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request_review:
+    types: [ submitted ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Deploy to Dev
+      run: npx cdk deploy --require-approval never
+
+  deploy-uat:
+    runs-on: ubuntu-latest
+    environment: uat
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Deploy to UAT
+      run: npx cdk deploy --require-approval never
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: prod
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Deploy to Prod
+      run: npx cdk deploy --require-approval never
