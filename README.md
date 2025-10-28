@@ -1,6 +1,10 @@
-# Welcome to your CDK TypeScript project
+# Mini Data Lake
 
-This is a blank project for CDK development with TypeScript.
+A CDK TypeScript project that creates a secure data lake infrastructure with encrypted S3 buckets for raw and curated data.
+
+## Architecture
+
+- **DataLakeStorage**: Creates KMS-encrypted S3 buckets for raw and curated data with versioning and public access blocking
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
