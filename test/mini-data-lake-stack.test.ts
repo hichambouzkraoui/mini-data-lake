@@ -40,7 +40,7 @@ describe('MiniDataLakeStack', () => {
   test('creates data catalog with correct database name', () => {
     template.hasResourceProperties('AWS::Glue::Database', {
       DatabaseInput: {
-        Name: 'datalake-test'
+        Name: 'datalake_test'
       }
     });
   });
