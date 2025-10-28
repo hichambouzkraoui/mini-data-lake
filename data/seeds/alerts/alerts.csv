@@ -1,3 +1,4 @@
-id,asset_id,severity,message,timestamp
-1,1,high,Temperature exceeded threshold,2024-01-01T11:00:00Z
-2,2,medium,Pressure warning,2024-01-01T11:30:00Z
+alert_id,sensor_id,timestamp,severity,state,message
+AL001,S001,2024-01-01 10:30:00,Medium,Open,Pressure above normal threshold
+AL002,S002,2024-01-01 11:15:00,High,Open,Corrosion rate exceeding limits
+AL003,S003,2024-01-01 09:45:00,Low,Closed,Temperature sensor calibration needed

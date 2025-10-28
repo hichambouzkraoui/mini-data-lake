@@ -1,3 +1,5 @@
-id,asset_id,type,description,timestamp
-1,1,scheduled,Regular maintenance,2024-01-01T09:00:00Z
-2,2,repair,Fixed leak,2024-01-01T14:00:00Z
+work_id,asset_id,event_date,event_type,description,status
+W001,A001,2024-01-15,Inspection,Routine pipeline inspection,Completed
+W002,A002,2024-01-10,Maintenance,Compressor oil change,Completed
+W003,A005,2024-01-20,Repair,Valve actuator replacement,In Progress
+W004,A004,2024-01-05,Inspection,Tank integrity check,Completed
