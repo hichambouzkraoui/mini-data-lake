@@ -1,0 +1,3 @@
+id,asset_id,type,unit
+1,1,temperature,celsius
+2,2,pressure,psi
