@@ -82,7 +82,7 @@ export class GlueJob extends Construct {
     });
 
     this.job = new glue.CfnJob(this, 'Job', {
-      name: 'datalake-iceberg-transform-job',
+      name: `datalake-${props.config.tableFormat || 'iceberg'}-transform-job`,
       role: this.role.roleArn,
       command: {
         name: 'glueetl',
@@ -93,6 +93,7 @@ export class GlueJob extends Construct {
         '--RAW_BUCKET': props.rawBucket.bucketName,
         '--CURATED_BUCKET': props.curatedBucket.bucketName,
         '--DATABASE_NAME': props.databaseName,
+        '--TABLE_FORMAT': props.config.tableFormat || 'iceberg',
         '--enable-continuous-cloudwatch-log': 'true',
         '--enable-metrics': 'true',
         '--datalake-formats': 'iceberg',

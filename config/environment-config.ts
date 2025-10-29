@@ -5,6 +5,7 @@ export interface Config {
   timeout: number;
   dataTypes?: string[];
   logRetentionDays?: number;
+  tableFormat?: 'iceberg' | 'external';
 }
 
 export const ENVIRONMENT_CONFIGS: Record<string, Config> = {
@@ -18,7 +19,7 @@ export const ENVIRONMENT_CONFIGS: Record<string, Config> = {
   },
   uat: {
     workerType: 'G.1X',
-    numberOfWorkers: 4,
+    numberOfWorkers: 2,
     maxRetries: 2,
     timeout: 120,
     dataTypes: ['assets', 'sensors', 'readings', 'alerts', 'maintenance_events'],
