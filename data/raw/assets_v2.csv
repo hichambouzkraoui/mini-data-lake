@@ -1,0 +1,6 @@
+asset_id,asset_name,asset_type,location,install_date,maintenance_schedule
+A001,Pipeline Segment 1(U),Pipeline,North Field,2020-01-15,Monthly
+A002,Compressor Station A,Compressor,Central Hub,2019-06-20,Quarterly
+A004,Storage Tank 1,Storage,East Facility,2018-11-05,Bi-Annual
+A005,Valve Station B,Valve,West Junction,2020-08-12,Monthly
+A006,Pipeline Segment 3,Pipeline,North Field,2024-01-01,Monthly

@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { MiniDataLakeStack } from '../lib/stacks/mini-data-lake-stack';
+import { getEnvironmentConfig } from '../config/environment-config';
 
 describe('MiniDataLakeStack', () => {
   let app: cdk.App;
@@ -9,8 +10,10 @@ describe('MiniDataLakeStack', () => {
 
   beforeEach(() => {
     app = new cdk.App();
+    const config = getEnvironmentConfig('dev');
     stack = new MiniDataLakeStack(app, 'TestStack', {
       environment: 'test',
+      config,
       env: { account: '123456789012', region: 'us-east-1' }
     });
     template = Template.fromStack(stack);

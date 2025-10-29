@@ -18,7 +18,8 @@ describe('DataDeployment', () => {
     rawBucket = new s3.Bucket(stack, 'RawBucket');
     
     new DataDeployment(stack, 'DataDeployment', {
-      rawBucket
+      rawBucket,
+      dataTypes: ['assets', 'sensors', 'readings', 'alerts', 'maintenance_events']
     });
     
     template = Template.fromStack(stack);

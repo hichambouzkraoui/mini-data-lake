@@ -3,6 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import * as kms from 'aws-cdk-lib/aws-kms';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { GlueJob } from '../../lib/constructs/glue-job';
+import { getEnvironmentConfig } from '../../config/environment-config';
 
 describe('GlueJob', () => {
   let app: cdk.App;
@@ -21,12 +22,14 @@ describe('GlueJob', () => {
     kmsKey = new kms.Key(stack, 'TestKey');
     rawBucket = new s3.Bucket(stack, 'RawBucket');
     curatedBucket = new s3.Bucket(stack, 'CuratedBucket');
+    const config = getEnvironmentConfig('dev');
     
     new GlueJob(stack, 'GlueJob', {
       rawBucket,
       curatedBucket,
       kmsKey,
-      databaseName: 'test_database'
+      databaseName: 'test_database',
+      config
     });
     
     template = Template.fromStack(stack);

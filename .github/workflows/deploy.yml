@@ -42,7 +42,7 @@ jobs:
       run: npm run build
     
     - name: Deploy to Dev
-      run: npx cdk deploy --require-approval never
+      run: npx cdk deploy --context environment=dev --require-approval never
 
   deploy-uat:
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
       run: npm run build
     
     - name: Deploy to UAT
-      run: npx cdk deploy --require-approval never
+      run: npx cdk deploy --context environment=uat --require-approval never
 
   deploy-prod:
     runs-on: ubuntu-latest
@@ -100,4 +100,4 @@ jobs:
       run: npm run build
     
     - name: Deploy to Prod
-      run: npx cdk deploy --require-approval never
+      run: npx cdk deploy --context environment=prod --require-approval never

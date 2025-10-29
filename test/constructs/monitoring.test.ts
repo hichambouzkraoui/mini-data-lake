@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Monitoring } from '../../lib/constructs/monitoring';
+import { getEnvironmentConfig } from '../../config/environment-config';
 
 describe('Monitoring', () => {
   let app: cdk.App;
@@ -10,8 +11,9 @@ describe('Monitoring', () => {
   beforeEach(() => {
     app = new cdk.App();
     stack = new cdk.Stack(app, 'TestStack');
+    const config = getEnvironmentConfig('dev');
     
-    new Monitoring(stack, 'Monitoring');
+    new Monitoring(stack, 'Monitoring', { config });
     
     template = Template.fromStack(stack);
   });
@@ -19,7 +21,7 @@ describe('Monitoring', () => {
   test('creates log group with correct configuration', () => {
     template.hasResourceProperties('AWS::Logs::LogGroup', {
       LogGroupName: '/aws/datalake/processing',
-      RetentionInDays: 30
+      RetentionInDays: 7
     });
   });
 
