@@ -110,6 +110,9 @@ Create environments in GitHub Settings > Environments:
 
 ### Deployment
 ```bash
+# Bootstrap CDK for each environment (required once per account/region)
+npx cdk bootstrap
+
 # Manual deployment
 ./scripts/deploy.sh [environment] [aws-profile]
 
