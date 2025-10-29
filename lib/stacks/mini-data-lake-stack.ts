@@ -6,9 +6,11 @@ import { AthenaWorkgroup } from '../constructs/athena-workgroup';
 import { DataDeployment } from '../constructs/data-deployment';
 import { GlueJob } from '../constructs/glue-job';
 import { Monitoring } from '../constructs/monitoring';
+import { Config } from '../../config/environment-config';
 
 export interface MiniDataLakeStackProps extends cdk.StackProps {
   readonly environment: string;
+  readonly config: Config;
 }
 
 export class MiniDataLakeStack extends cdk.Stack {
@@ -34,13 +36,17 @@ export class MiniDataLakeStack extends cdk.Stack {
       curatedBucket: storage.curatedBucket,
       kmsKey: storage.kmsKey,
       databaseName: `datalake_${props.environment}`,
+      config: props.config,
     });
 
     new DataDeployment(this, 'DataDeployment', {
       rawBucket: storage.rawBucket,
+      dataTypes: props.config.dataTypes || [],
     });
 
-    new Monitoring(this, 'Monitoring');
+    new Monitoring(this, 'Monitoring', {
+      config: props.config,
+    });
 
     // Grant Athena role access to raw bucket
     storage.rawBucket.grantRead(athena.role);

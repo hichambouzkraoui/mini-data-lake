@@ -6,11 +6,14 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
+import { Config } from '../../config/environment-config';
+
 export interface GlueJobProps {
   readonly rawBucket: s3.Bucket;
   readonly curatedBucket: s3.Bucket;
   readonly kmsKey: kms.Key;
   readonly databaseName: string;
+  readonly config: Config;
 }
 
 export class GlueJob extends Construct {
@@ -105,11 +108,11 @@ export class GlueJob extends Construct {
         ].join(' --conf '),
         '--additional-python-modules': 'boto3',
       },
-      maxRetries: 0,
-      timeout: 60,
+      maxRetries: props.config.maxRetries,
+      timeout: props.config.timeout,
       glueVersion: '4.0',
-      workerType: 'G.1X',
-      numberOfWorkers: 2,
+      workerType: props.config.workerType,
+      numberOfWorkers: props.config.numberOfWorkers,
     });
 
     this.job.node.addDependency(scriptDeployment);

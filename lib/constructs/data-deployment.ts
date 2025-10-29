@@ -4,15 +4,14 @@ import { Construct } from 'constructs';
 
 export interface DataDeploymentProps {
   readonly rawBucket: s3.Bucket;
+  readonly dataTypes: string[];
 }
 
 export class DataDeployment extends Construct {
   constructor(scope: Construct, id: string, props: DataDeploymentProps) {
     super(scope, id);
-
-    const dataTypes = ['assets', 'sensors', 'readings', 'alerts', 'maintenance_events'];
     
-    dataTypes.forEach(dataType => {
+    props.dataTypes.forEach(dataType => {
       new s3deploy.BucketDeployment(this, `Deploy${dataType}`, {
         sources: [s3deploy.Source.asset(`./data/seeds/${dataType}`)],
         destinationBucket: props.rawBucket,
